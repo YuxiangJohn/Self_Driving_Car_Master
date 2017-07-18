@@ -15,19 +15,24 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/grayscale.jpg "Grayscale"
+[image1]: ./test_images_output/result_solidYellowLeft.jpg
 
 ---
 
-### Reflection
+### Description
 
-### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
+### 1. Pipline
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
+My pipeline consisted of 5 steps. 
+* grayscale: **cv2.cvtColor** Convert the images to grayscale.
+* blur: **cv2.GaussianBlur** Blur the grayscale images using the Gaussian blur.
+* canny: **cv2.Canny** Use Canny edges detection to find egdes on the blur images.
+* mask: Restrict the part of the image so that the not intersting part would be eliminated.
+* hough: **cv2.HoughLinesP** Use the Hough transformation to find the lines on the masked image.
+* draw: In order to draw a solid and fix line on the left and right lanes, I use the lines found in the hough transformation, find the slope of the lines and distinguish the left and right by the postive and negative of slope, get two points per line to make a point set. Then I use Least squares method to find a line which fits most of these points(**numpy.polyfit**).
+* weighted: Merges the drawed lines and the original image.
 
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
 
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
 
 ![alt text][image1]
 
