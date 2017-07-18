@@ -37,13 +37,13 @@ My pipeline consisted of 5 steps.
 ![alt text][image1]
 
 
-### 2. Identify potential shortcomings with your current pipeline
+### 2. Identify potential shortcomings with the current pipeline
 
 The lines drawed on the challenge video are not very good. They shake and not on the place we want. The lines is affected by the median of the road and some shadows.
 
 
 
-### 3. Suggest possible improvements to your pipeline
+### 3. Suggest possible improvements to the pipeline
 
 A possible improvement would be to use a better draw_lines() fuction. Find a better way to average the lines.
 Another way is to combine some color mask. 
