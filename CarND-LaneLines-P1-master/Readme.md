@@ -39,14 +39,13 @@ My pipeline consisted of 5 steps.
 
 ### 2. Identify potential shortcomings with your current pipeline
 
+The lines drawed on the challenge video are not very good. They shake and not on the place we want. The lines is affected by the median of the road and some shadows.
 
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
 
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
+A possible improvement would be to use a better draw_lines() fuction. Find a better way to average the lines.
+Another way is to combine some color mask. 
 
-Another potential improvement could be to ...
+
