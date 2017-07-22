@@ -1,29 +1,13 @@
 # CarND-Behavioral-Cloning-P3
-Udacity Self Driving Car Nanodegree - Behavioral Cloning
+Yuxiang 2017/7/22
 
 
 # Prerequisites
 
-To run this project, you need [Miniconda](https://conda.io/miniconda.html) installed(please visit [this link](https://conda.io/docs/install/quick.html) for quick installation instructions.)
-
-In order to run the [Visualizations.ipynb](Visualizations.ipynb), [Graphviz][http://www.graphviz.org/] executable must be on the jupyter path. To installed on Mac OS X, use the following brew formula:
-
-```
-brew install graphviz
-```
-
-# Installation
-To create an environment for this project use the following command:
-
-```
-conda env create -f environment.yml
-```
-
-After the environment is created, it needs to be activated with the command:
-
-```
-source activate carnd-term1
-```
+Anaconda
+tensorflow
+Keras 1.2.1
+Opencv
 
 # Project
 
@@ -51,15 +35,10 @@ My project includes the following files:
 - **model.h5** : Containing a trained convolution neural network.
 - **writeup_report.md** : Summarizing the results
 
-Node:
-
-On my first iteration, I tried [LeNet](http://yann.lecun.com/exdb/lenet/) model and [nVidia Autonomous Car Group](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) model. This experiments could be found at [clone.py](clone.py).
-The visualizations I used to create this report could be found at [Visualizations.ipynb](Visualizations.ipynb).
-
 #### 2. Submission includes functional code Using the Udacity provided simulator and my drive.py file; the car can be driven autonomously around the track by executing
 
 ```
-Python drive.py model.h5
+python drive.py model.h5
 ```
 
 #### 3. Submission code is usable and readable
@@ -70,9 +49,9 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My initial approach was to use [LeNet](http://yann.lecun.com/exdb/lenet/), but it was hard to have the car inside the street with three epochs (this model could be found [here](clone.py#L81-L94)). After this, I decided to try the [nVidia Autonomous Car Group](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) model, and the car drove the complete first track after just three training epochs (this model could be found [here](model.py#L108-L123)).
+I refer to the [nVidia Autonomous Car model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/), build it and the car drove the complete first track.
 
-A model summary is as follows:
+The model summary is as follows:
 
 ```
 Layer (type)                     Output Shape          Param #     Connected to                     
@@ -106,11 +85,11 @@ Trainable params: 981,819
 Non-trainable params: 0
 ```
 
-(More details about this bellow.)
 
 #### 2. Attempts to reduce overfitting in the model
 
-I decided not to modify the model by applying regularization techniques like [Dropout](https://en.wikipedia.org/wiki/Dropout_(neural_networks)) or [Max pooling](https://en.wikipedia.org/wiki/Convolutional_neural_network#Max_pooling_shape). Instead, I decided to keep the training epochs low: only three epochs.
+To overcome the overfitting, the model will only train 3 epochs every time. 
+In addition, I use large number of training data to reduce overfitting
 In addition to that, I split my sample data into training and validation data. Using 80% as training and 20% as validation. This can be seen at [this part of the code](model.py#L131-L134).
 
 #### 3. Model parameter tuning
