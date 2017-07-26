@@ -49,7 +49,13 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. The final model architecture 
 
-I refer to the [nVidia Autonomous Car model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/), build it and the car drove the complete first track.
+I refer to the [nvidia Autonomous Car model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/), build it and the car drove the complete first track.
+
+The nvidia model architecture is shown in the following image:
+
+![nvidia architecture](graph/3.png)
+
+My model input is (160, 320, 3) image. To preprocess the data input, I add a Lambda layer to normalize the input. The Cropping2D layer was add to crop the image. The details will be shown in the data preprocess and augumentation.
 
 The model summary is as follows:
 
@@ -84,9 +90,6 @@ Total params: 981,819
 Trainable params: 981,819
 Non-trainable params: 0
 ```
-The final model architecture is shown in the following image:
-
-![Final model architecture](images/nVidea_data.png)
 
 
 #### 2. Strategys to reduce overfitting in the model
@@ -126,8 +129,6 @@ A effective technique for helping with the left or right turn bias involves flip
 
 **Bias:**<br>
 As the images from left and right images are used, we need to add an bias to the steering angle from these images. The value of the bias is 0.25. The left will add +0.25 and the right will add -0.25.
-
-
 
 
 
