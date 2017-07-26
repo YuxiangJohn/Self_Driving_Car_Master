@@ -56,7 +56,7 @@ The nvidia model architecture is shown in the following image:
 
 ![nvidia architecture](graph/3.png)
 
-My model input is (160, 320, 3) image. To preprocess the data input, I add a Lambda layer to normalize the input. The Cropping2D layer was add to crop the image. The details will be shown in the data preprocess and augumentation.
+My model input are (160, 320, 3) images. To preprocess the data input, I add a Lambda layer to normalize the input. The Cropping2D layer was added to crop the image. The details will be shown in the data preprocess and augumentation.
 
 The model summary is as follows:
 
