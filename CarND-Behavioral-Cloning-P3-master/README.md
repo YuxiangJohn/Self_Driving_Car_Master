@@ -102,7 +102,7 @@ To observe the accuracy of validation, I split the dataset into training set and
 
 I used Adam optimizer, the learning rate will automatically adjust according to the training process.
 
-#### 4. Appropriate training data
+#### 4. Training data
 
 The original dataset is provided by Udacity.
 To gather more training dataset for generalizing the model and keep the car run better on the lane, I recorded the runing process 6 times with a car runing safely on the lane. Each record contained both track 1 and track 2. For each track, I recorded at least 3 forward loops and 3 backward loops for each track every record. 
@@ -112,7 +112,7 @@ For every samples, the simulator provides three different images: center, left, 
 The totally size of the training data images and csv files is: 2.71 GB
 
 
-#### 3. Data preprocess and augmentation
+#### 5. Data preprocess and augmentation
 
 **Normalization:** <br>
 The pixels for each image are divided by 255 and then substracted 0.5 for zero mean.
@@ -131,5 +131,8 @@ A effective technique for helping with the left or right turn bias involves flip
 As the images from left and right images are used, we need to add an bias to the steering angle from these images. The value of the bias is 0.25. The left will add +0.25 and the right will add -0.25.
 
 
+#### 5. Training process
 
-After this training, the car was driving down the road all the time on the [first](video.mp4) and [second](video_second_track.mp4) track. 
+The final model was trained 7 times by 7 datasets I mentioned above. Everytime a model was train, this model was loaded to train the next dataset.
+
+After this training, the car was driving down the road all the time on the [first](run1.mp4) and [second](run2.mp4) track. 
