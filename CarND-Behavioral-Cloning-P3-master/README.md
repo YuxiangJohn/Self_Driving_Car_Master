@@ -1,7 +1,7 @@
 # CarND-Behavioral-Cloning-P3
 Yuxiang 2017/7/26
 
-![picture](graph/5.png)
+![picture](graph/5.png =320x240)
 
 # Prerequisites
 
