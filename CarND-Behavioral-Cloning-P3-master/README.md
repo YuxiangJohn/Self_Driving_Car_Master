@@ -5,8 +5,11 @@ Yuxiang 2017/7/22
 # Prerequisites
 
 Anaconda
+
 tensorflow
+
 Keras 1.2.1
+
 Opencv
 
 # Project
