@@ -4,13 +4,10 @@ Yuxiang 2017/7/22
 
 # Prerequisites
 
-Anaconda
-
-tensorflow
-
-Keras 1.2.1
-
-Opencv
+Anaconda<br>
+tensorflow<br>
+Keras 1.2.1<br>
+Opencv<br>
 
 # Project
 
@@ -119,10 +116,12 @@ The pixels for each image are divided by 255 and then substracted 0.5 for zero m
 
  **Cropping:** <br>
 The pictures will be crop by the Cropping2D layer in the Keras model.
+
 ![Cropping](graph/1.png)
 
  **Flipping:** <br>
 A effective technique for helping with the left or right turn bias involves flipping images and taking the opposite sign of the steering measurement.
+
 ![Flipping](graph/2.png)
 
 **Bias:**<br>
