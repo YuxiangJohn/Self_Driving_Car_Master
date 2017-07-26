@@ -34,7 +34,7 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 My project includes the following files:
 
 - **model.py** : The python code for the training process and the model architecture.
-- **drive.py** : For driving the car in autonomous mode in the simulator (This is provided [Udacity](https://github.com/udacity/CarND-Behavioral-Cloning-P3/blob/master/drive.py).
+- **drive.py** : For driving the car in autonomous mode in the simulator (This is provided [Udacity](https://github.com/udacity/CarND-Behavioral-Cloning-P3/blob/master/drive.py)).
 - **model.h5** : The trained model to predict the steering angle.
 - **README.md** : Report for the pipline and the results
 
@@ -95,7 +95,7 @@ The final model architecture is shown in the following image:
 #### 2. Strategys to reduce overfitting in the model
 
 To overcome the overfitting, the model will only train 5 epochs every time. 
-In addition, I use large number of training data to reduce overfitting
+In addition, I use large number of training data to reduce overfitting, and the dataset was shuffled before fit in the model.
 To observe the accuracy of validation, I split the dataset into training set and validation set.
 
 #### 3. Model parameter tuning
@@ -114,12 +114,21 @@ The totally size of the training data images and csv files is: 2.71 GB
 
 #### 3. Data preprocess and augmentation
 
-All images I used were normalized:
-The pixels for each image are divided by 255 and then substracted 0.5 for 0 mean.
+**Normalization:** <br>
+The pixels for each image are divided by 255 and then substracted 0.5 for zero mean.
 
+ **Cropping:** <br>
 The pictures will be crop by the Cropping2D layer in the Keras model.
+![Cropping](graph/1.png)
 
-All these data was used for training the model with three epochs. The data was shuffled randomly. The following picture shows the training:
+ **Flipping:** <br>
+A effective technique for helping with the left or right turn bias involves flipping images and taking the opposite sign of the steering measurement.
+![Flipping](graph/2.png)
+
+**Bias:**<br>
+As the images from left and right images are used, we need to add an bias to the steering angle from these images. The value of the bias is 0.25. The left will add +0.25 and the right will add -0.25.
+
+
 
 
 
