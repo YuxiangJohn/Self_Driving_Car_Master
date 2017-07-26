@@ -132,8 +132,8 @@ A effective technique for helping with the left or right turn bias involves flip
 As the images from left and right images are used, we need to add an bias to the steering angle from these images. The value of the bias is 0.25. The left will add +0.25 and the right will add -0.25.
 
 
-#### 5. Training process
+#### 5. Training process and result
 
 The final model was trained 7 times by 7 datasets I mentioned above. Everytime a model was train, this model was loaded to train the next dataset.
 
-After this training, the car was driving down the road all the time on the [first track](run1.mp4). 
+After this training, the car was driving down the road all the time on the [first track](run1.mp4). The simulator setting is 640x480 in Fastest mode.
