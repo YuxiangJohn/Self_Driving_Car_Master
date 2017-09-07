@@ -48,52 +48,51 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ### Pipeline (single images)
 
-#### 1. Provide an example of a distortion-corrected image.
+#### 1. Distortion correction
 
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
+Just like the undistortion for the chessboard, we applied the `undistort()` function to a test image on the road and got the result:
+![](output_images/2.png)
 
-#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
 
-![alt text][image3]
+#### 2. Perspective transform 
 
-#### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
-
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called `per_transform()`, which appears  in the first code cell under the Perspective transform part on the IPython notebook.  I chose the hardcode the source and destination points(src,dst) in the following manner:
 
 ```python
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
+src = np.float32([[220,720],[1110,720],[722,470],[570,470]])
+dst = np.float32([[320,720],[920,720],[920,1],[320,1]])
 ```
 
 This resulted in the following source and destination points:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
+| 220, 720      | 320, 720      | 
+| 1110, 720     | 920, 720      |
+| 722, 470      | 920, 1        |
+| 570, 470      | 320, 1        |
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+The applied the transform to the test image and we can see the result:
+![](output_images/3.png)
+![](output_images/4.png)
 
-![alt text][image4]
 
-#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+#### 2.Color and Gradient threshold.
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+I used a combination of color and gradient thresholds to generate a binary image. I created a function `threshold()` to do these. In this function, the input image will first undistrot by the `undistort()` function. Then do the perspective transform as above..Apply gradient threshold(min=20,max=100) on the horizontal gradient to the grayscale image. Convert the RGB image to HLS color space and get the s_channel. Apply threshold(min=90,max=255) to the s_channel. Finally combine the s_channel and the gradient to get the final result.
+Here's an example of my output for this step. 
 
-![alt text][image5]
+![](output_images/5.png)
+
+#### 4. Identify lane-line pixels and fit their positions with a polynomial
+
+The method to detect lane line can sperate into two part. The first is to get the histogram of the image on the horizontal direction. We can see that the Peak in the first half indicates the likely position of the left line; the peak in the second half indicates the likely postion of the right line.
+![](output_images/6.png)
+
+The sencond is to apply the sliding window. The window size is 10. The histogram gave us the location of lane lines. We just identify all non zero pixels around histogram peaks using numpy function `numpy.nonzeros()`. Then fit a polynomial to each lane using the numpy fucntion `numpy.polyfit()`. 
+![](output_images/8.png)
+![](output_images/7.png)
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
