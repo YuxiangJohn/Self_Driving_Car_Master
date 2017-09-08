@@ -126,3 +126,8 @@ Here's a [link to my video result](./project_video.mp4)
 ### Discussion
 
 The pipeline work well in the project video. But the pipeline may fail when there are complicated weather conditions. The light will effect the result too. To build a robust pipeline, we need to combine more channel or threshold.
+
+### Reference
+https://chatbotslife.com/robust-lane-finding-using-advanced-computer-vision-techniques-46875bb3c8aa#.l2uxq26sn
+https://www.researchgate.net/publication/257291768_A_Much_Advanced_and_Efficient_Lane_Detection_Algorithm_for_Intelligent_Highway_Safety
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5017478/
