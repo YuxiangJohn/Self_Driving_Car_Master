@@ -51,6 +51,7 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 #### 1. Distortion correction
 
 Just like the undistortion for the chessboard, we applied the `undistort()` function to a test image on the road and got the result:
+
 ![](output_images/2.png)
 
 
@@ -74,6 +75,7 @@ This resulted in the following source and destination points:
 | 570, 470      | 320, 1        |
 
 The applied the transform to the test image and we can see the result:
+
 ![](output_images/3.png)
 ![](output_images/4.png)
 
@@ -88,27 +90,34 @@ Here's an example of my output for this step.
 #### 4. Identify lane-line pixels and fit their positions with a polynomial
 
 The method to detect lane line can sperate into two part. The first is to get the histogram of the image on the horizontal direction. We can see that the Peak in the first half indicates the likely position of the left line; the peak in the second half indicates the likely postion of the right line.
+
 ![](output_images/6.png)
 
 The sencond is to apply the sliding window. The window size is 10. The histogram gave us the location of lane lines. We just identify all non zero pixels around histogram peaks using numpy function `numpy.nonzeros()`. Then fit a polynomial to each lane using the numpy fucntion `numpy.polyfit()`. 
+
 ![](output_images/8.png)
 ![](output_images/7.png)
 
-#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+The formula to calculate the radius of curvature can been seen here: [Curvature](https://www.intmath.com/applications-differentiation/8-radius-curvature.php)
+We calculate the radius of curvature in the bird eye graph first. Then we transform the result back to the real world space.
+Then we found the left bottom and right bottom of two lines, average the postion. The middle point of the original image can be used as the reference mid point to calculate the difference of the average position. So the offset of center is measured.
+The code of this part are shown in the code cell under the `measuring Curvature` part.
 
-#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+#### 6. Example of Draw lane
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+I implemented the overall pipeline in the `Draw lane` part. Here is the example:
 
-![alt text][image6]
+![](output_images/9.png)
+![](output_images/10.png)
+![](output_images/11.png)
 
 ---
 
 ### Pipeline (video)
 
-#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Final video output.  
 
 Here's a [link to my video result](./project_video.mp4)
 
@@ -116,6 +125,4 @@ Here's a [link to my video result](./project_video.mp4)
 
 ### Discussion
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The pipeline work well in the project video. But the pipeline may fail when there are complicated weather conditions. The light will effect the result too. To build a robust pipeline, we need to combine more channel or threshold.
