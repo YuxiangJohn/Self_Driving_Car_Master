@@ -129,5 +129,7 @@ The pipeline work well in the project video. But the pipeline may fail when ther
 
 ### Reference
 https://chatbotslife.com/robust-lane-finding-using-advanced-computer-vision-techniques-46875bb3c8aa#.l2uxq26sn
+
 https://www.researchgate.net/publication/257291768_A_Much_Advanced_and_Efficient_Lane_Detection_Algorithm_for_Intelligent_Highway_Safety
+
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5017478/
