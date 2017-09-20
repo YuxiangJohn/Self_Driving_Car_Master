@@ -119,7 +119,7 @@ I implemented the overall pipeline in the `Draw lane` part. Here is the example:
 
 #### 1. Final video output.  
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./project_video_out.mp4)
 
 ---
 
