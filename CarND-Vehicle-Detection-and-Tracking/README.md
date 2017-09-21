@@ -27,7 +27,7 @@ The tiny YOLO is consist of 9 convolution layers and 3 full connected layers. Le
 
 ![model](./output_images/net.png)
 
-The model summary is display below.
+The model summary is displayed below.
 
     ____________________________________________________________________________________________________
     Layer (type)                     Output Shape          Param #     Connected to                     
