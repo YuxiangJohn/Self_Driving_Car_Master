@@ -1,6 +1,6 @@
 # Vehicle Detection and tracking Project
 
-This is a project for Udacity self-driving car Nanodegree program. The aim of this project is to detect the vehicles in a dash camera video. The implementation of the project is in the file Vehicle_detection.ipynb.
+This is a project for Udacity self-driving car Nanodegree program. The implementation of the project is in the file Vehicle_detection.ipynb.
 
 In this README, each step in the pipeline will be explained in details.
 
