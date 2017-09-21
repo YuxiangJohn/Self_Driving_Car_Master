@@ -95,7 +95,8 @@ The model summary is display below.
     Non-trainable params: 0
     ____________________________________________________________________________________________________
 
-
+### Input
+The YOLO's model requires the input as shape (448 x 448 x 3). So I crop the image to fit the net.
 
 ### Output
 
@@ -105,6 +106,11 @@ The output of this network is a 7x7x30(1470) length vector. The system models de
     output tensor length = 7 x 7 x (2x5 + 20)
     output tensor length = 1470.
 
+1. First 980 values correspons to probabilities for each of the 20 classes for each grid cell. These probabilities are conditioned on objects being present in each grid cell.
+2. The next 98 values are confidence scores for 2 bounding boxes predicted by each grid cells.
+3. The next 392 values are co-ordinates (x, y, w, h) for 2 bounding boxes per grid cell.
+
+![model](./output_images/net_output.png)
 
 ### Use pretrained weights
 
@@ -133,15 +139,17 @@ Combine with the Land finding process:
 
 ## Discussion
 
-The output 
+The result looks good. The tiny YOLO can predict car very well. However, the bounding box may not cover all the pixel of a car sometimes.
 
 ## Reference
 
 1. J. Redmon, S. Divvala, R. Girshick, and A. Farhadi, You Only Look Once: Unified, Real-Time Object Detection, arXiv:1506.02640 (2015).
 2. J. Redmon and A. Farhadi, YOLO9000: Better, Faster, Stronger, arXiv:1612.08242 (2016).
+3. YOLO, https://pjreddie.com/darknet/yolo/
 3. darkflow, https://github.com/thtrieu/darkflow
 4. Darknet.keras, https://github.com/sunshineatnoon/Darknet.keras/
 5. YAD2K, https://github.com/allanzelener/YAD2K
+6. xslittlegrass, https://github.com/xslittlegrass/CarND-Vehicle-Detection
 
 
 
