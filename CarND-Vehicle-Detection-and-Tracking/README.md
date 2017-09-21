@@ -1,32 +1,33 @@
-# Vehicle Detection Project
+# Vehicle Detection and tracking Project
 
-This is a project for Udacity self-driving car Nanodegree program. The aim of this project is to detect the vehicles in a dash camera video. The implementation of the project is in the file vehicle_detection.ipynb. This implementation is able to achieve 21FPS without batching processing. The final video output is [here](https://www.youtube.com/watch?v=PncSIx8AHTs).
+This is a project for Udacity self-driving car Nanodegree program. The aim of this project is to detect the vehicles in a dash camera video. The implementation of the project is in the file Vehicle_detection.ipynb.
 
 In this README, each step in the pipeline will be explained in details.
 
+## Dependencies
+This project requires python 3.5 and the following dependecies:
+- [Keras 1.2.1](https://keras.io/)
+- [NumPy](http://www.numpy.org/)
+- [matplotlib](http://matplotlib.org/)
+- [OpenCV](http://opencv.org/)
+- [MoviePy](http://zulko.github.io/moviepy/)
+
 ## Introduction to object detection
 
-Detecting vehicles in a video stream is an object detection problem. An object detection problem can be approached as either a classification problem or a regression problem. As a classification problem, the image are divided into small patches, each of which will be run through a classifier to determine whether there are objects in the patch. Then the bounding boxes will be assigned to locate around patches that are classified with high probability of present of an object. In the regression approach, the whole image will be run through a convolutional neural network to directly generate one or more bounding boxes for objects in the images.
-
-| classification                                                                                                                               | regression                                               |
-|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
-| Classification on portions of the image to determine objects, generate bounding boxes for regions that have positive classification results. | Regression on the whole image to generate bounding boxes |
-| 1. sliding window + HOG 2. sliding window + CNN 3. region proposals + CNN                                                                    | generate bounding box coordinates directly from CNN      |
-| RCNN, Fast-RCNN, Faster-RCNN                                                                                                                 | SSD, YOLO                                                |
+In this project, we have a video recording the car driving on the highway. The video process can be consider as a number of image process. The vehicle detection is an important part of self driving car. We need to detect the cars which appear in the camera in order to have a safe driving. 
 
 In this project, we will use tiny-YOLO v1, since it's easy to implement and are reasonably fast.
 
 
 ## The tiny-YOLO v1
 
-### Architecture of the convolutional neural network
+### Architecture
 
-The tiny YOLO v1 is consist of 9 convolution layers and 3 full connected layers. Each convolution layer consists of convolution, leaky relu and max pooling operations. The first 9 convolution layers can be understood as the feature extractor, whereas the last three full connected layers can be understood as the "regression head" that predicts the bounding boxes.
+The tiny YOLO is consist of 9 convolution layers and 3 full connected layers. Leaky relu(alpha = 0.1) and max pooling follow each convolution layer. The first 9 convolution layers can be understood as the feature extractor, whereas the last three full connected layers can be understood as the "regression head" that predicts the bounding boxes.
 
-![model](./output_images/mode_yolo_plot.jpg)
+![model](./output_images/net.png)
 
-There are a total of 45,089,374 parameters in the model and the detail of the architecture is in list in this table
-
+The model summary is display below.
 
     ____________________________________________________________________________________________________
     Layer (type)                     Output Shape          Param #     Connected to                     
@@ -95,37 +96,44 @@ There are a total of 45,089,374 parameters in the model and the detail of the ar
     ____________________________________________________________________________________________________
 
 
-In this project, we will use Keras to construct the YOLO model.
 
-### Postprocessing
+### Output
 
-The output of this network is a 1470 vector, which contains the information for the predicted bounding boxes. The information is organized in the following way
+The output of this network is a 7x7x30(1470) length vector. The system models detection is as a regression problem. It divides the image into an S x S grid and for each grid cell predicts B bounding boxes, confidence for those boxes, and C class probabilities.
 
-<img src="./output_images/net_output.png" width="600"/>
+    output tensor length = S x S x (B x 5 + C)
+    output tensor length = 7 x 7 x (2x5 + 20)
+    output tensor length = 1470.
 
-The 1470 vector output is divided into three parts, giving the probability, confidence and box coordinates. Each of these three parts is also further divided into 49 small regions, corresponding to the predictions at each cell. In postprocessing steps, we take this 1470 vector output from the network to generate the boxes that with a probability higher than a certain threshold. The detail of these steps are in the `yolo_net_out_to_car_boxes` function in the `utili` class.
 
 ### Use pretrained weights
 
-Training the YOLO network is time consuming. We will download the pretrained weights from [here](https://drive.google.com/file/d/0B1tW_VtY7onibmdQWE1zVERxcjQ/view?usp=sharing) (172M) and load them into our Keras model. The weight loading function is in the `load_weight` function in the utili class
+We use pretained weights to save time. We will download the pretrained weights from [here](https://drive.google.com/file/d/0B1tW_VtY7onibmdQWE1zVERxcjQ/view?usp=sharing).
+Then load the weights into the model by "load_weights()" function.
 
 ```
 load_weights(model,'./yolo-tiny.weights')
 ```
+### Class score threshold
+If the output of class scores from grid cells below the threshold 0.2, the output will be ingnored. 
 
-Note that tensorflow is used for the backend in this project.
+### Deal with overlap bounding boxes
+If the output contain multiple bounding boxes, the overlap bounding boxes with intersection over union(IOU) more than 0.4, the highest calss score will be kept without other bounding boxes. 
 
 ## Results
 
-The following shows the results for several test images with a threshold of 0.17. We can see that the cars are detected:
+The prediction on the test images are shown below:
 
 ![png](./output_images/detection_on_test_images.png)
 
-[Here](https://www.youtube.com/watch?v=PncSIx8AHTs) is the result of applying the same pipeline to a video.
+Combine with the Land finding process:
+
+ [link to my video result](./project_video_out.mp4)
+
 
 ## Discussion
 
-The YOLO is known to be fast. In the original paper, the tiny-YOLO is reported to work at nearly 200 FPS on a powerful desktop GPU. In this project, the video is processed on a Nvidia 1070 and the rate is about 21FS without batch processing.
+The output 
 
 ## Reference
 
