@@ -135,7 +135,8 @@ The prediction on the test images are shown below:
 Combine with the Land finding process:
 
  [link to my video result](./project_video_out.mp4)
-
+ 
+![video](./output_images/video.gif)
 
 ## Discussion
 
