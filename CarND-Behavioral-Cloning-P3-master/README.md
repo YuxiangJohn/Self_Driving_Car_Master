@@ -137,3 +137,5 @@ As the images from left and right images are used, we need to add an bias to the
 The final model was trained 7 times by 7 datasets I mentioned above. Everytime a model was train, this model was loaded to train the next dataset.
 
 After this training, the car was driving down the road all the time on the [first track](run1.mp4). The simulator setting is 640x480 in Fastest mode.
+
+![Run](graph/run.gif)
